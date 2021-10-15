@@ -80,3 +80,34 @@ mat mat::operator = (const mat &A){
     return (*this);
 }
 
+mat mat::operator + (const mat &A){
+    if(row != A.row || col != A.col){
+        cout<<"Error matrices de diferentes dimenciones"<<endl;
+        return mat();
+    }
+        
+
+    mat C(row,col);
+    
+    for(int i0 = 0; i0 < row; ++i0){
+        for(int j0 = 0; j0 <col; ++j0){
+            C.data[i0*col+j0] = data[i0*col+j0] + A.data[i0*col+j0];
+        }
+    }
+    return C;
+}
+mat mat::operator * (const mat &A){
+    if(col != A.row)
+        return mat();
+    mat C(row,A.col);
+    for(int i0 = 0; i0<row;++i0){
+        for(int j0 = 0; j0 <A.col;++j0){
+            C.data[i0*col+j0] = 0;
+            for(int k0 = 0; k0<col;++k0){
+                C.data[i0*col+j0] += data[i0*col+k0] * A.data[k0*A.col+j0];
+            }
+        }
+    }
+    return C;
+}
+
