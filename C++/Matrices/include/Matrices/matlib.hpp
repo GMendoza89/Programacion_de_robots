@@ -24,6 +24,7 @@ public:
     mat(unsigned int R, unsigned int C);
     ~mat();
     void read(string fileName);
+    void save(string fileName);
     void erease();
     void print();
     void make();
@@ -32,5 +33,9 @@ public:
 
     mat operator = (const mat &A);
     mat operator + (const mat &A);
+    mat operator - (const mat &A);
     mat operator * (const mat &A);
+    mat operator * (const double &K);
+    
+    
 };
