@@ -1,8 +1,6 @@
 import sim
 import math as mt
 import numpy as np
-import time
-
 
 
 
@@ -52,7 +50,7 @@ class PioneerP3DX:
     
     def getUltrasonicSensorshandle(self):
         for i0 in range(1,17):
-            returnCode,sensorI = sim.simxGetObjectHandle(self.clientID, "Pioneer_p3dx_ultrasonicSensor"+str(i0), sim.simx_opmode_blocking)
+            returnCode, sensorI = sim.simxGetObjectHandle(self.clientID, "Pioneer_p3dx_ultrasonicSensor"+str(i0), sim.simx_opmode_blocking)
             self.ultrasonicSensors.append(sensorI)
 
     def initUltrasonicSensors(self):
@@ -70,7 +68,7 @@ class PioneerP3DX:
         
     def follow(self):
         returnCode = sim.simxSetJointTargetVelocity(self.clientID, self.robotRightMotor, 0.3, sim.simx_opmode_streaming)
-        returnCode = sim.simxSetJointTargetVelocity(self.clientID, self.robotLeftMotor, 0.3, sim.simx_opmode_streaming)
+        returnCode = sim.simxSetJointTargetVelocity(slelf.clientID, self.robotLeftMotor, 0.3, sim.simx_opmode_streaming)
     
     def angleDifferential(self,phi):
         theta = mt.acos(mt.cos(self.robotOrientation[2])*mt.cos(phi)+mt.sin(self.robotOrientation[2])*mt.sin(phi))
@@ -107,19 +105,3 @@ class PioneerP3DX:
             self.move(velocity,angularVelocity)
         self.Stop()
             
-
-    
-
-
-
-if __name__ == "__main__":
-    robot = PioneerP3DX(0.1,0.5)
-    robot.connect(19999)
-    robot.robotInit()
-    #robot.goToAPoint([0,0,0])
-    while True:
-        robot.getMesaurament()
-        print(robot.ultrasonicSensorsMeasure)
-        time.sleep(1)
-
-    
